@@ -6,32 +6,27 @@ import './App.css';
 
 
 export default function App(){
-  const [searchRobot, setSearchRobot] = useState({
-    robots: [],
-    searchField: ""
-  })
+  const [searchField, setSearchField] = useState('')
+  const [robots, setRobots] = useState([])
+  const [filteredRobots, setFilteredRobots] = useState(robots)
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(data => setSearchRobot(prevSearchRobot => ({
-        ...prevSearchRobot,
-        robots: data
-      })))
-  })
+      .then((res) => res.json())
+      .then((users) => setRobots(users))
+  }, [])
 
-  function onSearchChange(event) {
-    const { value } = event.target
-    setSearchRobot(prevSearchRobot => ({
-      ...prevSearchRobot,
-      searchField: value
-    }))
+  useEffect(() => {
+    const newFilterRobots = robots.filter((robot) => {
+      return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase())
+    })
+    setFilteredRobots(newFilterRobots)
+  }, [robots, searchField])
+
+  const onSearchChange = (e) => {
+    const searchFieldString = e.target.value.toLocaleLowerCase()
+    setSearchField(searchFieldString)
   }
-
-  const { robots, searchField } = searchRobot
-  const filteredRobots = robots.filter(robot => {
-    return robot.name.toLowerCase().includes(searchField.toLowerCase())
-  })
 
   return !robots.length ?
   <h1>Loading</h1> :
