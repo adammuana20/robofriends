@@ -1,7 +1,11 @@
-import React from "react";
 import Card from './Card'
+import { Robot } from '../Containers/App';
 
-export default function CardList({ robots }){
+type CardListProps = {
+    robots: Robot[]
+}
+
+export default function CardList({ robots }: CardListProps){
     const cardItems = robots.map((robot) => {
         return <Card key={robot.id} robot={robot}/>
     })
