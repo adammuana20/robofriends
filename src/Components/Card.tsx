@@ -1,6 +1,10 @@
-import React from "react";
+import { Robot } from "../Containers/App";
 
-export default function Card({ robot }){
+type CardProps = {
+    robot: Robot
+}
+
+export default function Card({ robot }: CardProps){
     const { id, name, email } = robot
     return (
         <div className='tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5'>

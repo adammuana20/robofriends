@@ -1,6 +1,10 @@
-import React from "react";
+import { ChangeEvent } from "react"
 
-export default function SearchBox({searchChange}){
+type SearchBoxProps = {
+    searchChange: (event: ChangeEvent<HTMLInputElement>) => void
+}
+
+export default function SearchBox({searchChange}: SearchBoxProps){
     return (
         <div className="pa2">
             <input 
